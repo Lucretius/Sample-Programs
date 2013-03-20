@@ -1,0 +1,116 @@
+//This is my solution to Problem #12 which asks: 
+//What is the value of the first triangle number to have over five hundred divisors?
+//This program was made in Java.
+
+
+
+public class Euler12 {
+  public static void main(String args[]){
+		long startTime = System.currentTimeMillis();
+		int freq[]= new int [10000];
+		long triNum = 3;
+		int factors[] = {};
+		long temp = 1;
+		
+		factors = getPrimes();
+		
+		
+		for (long i = 3; i < 99999; i++)
+		{
+			triNum+=i;
+			temp = triNum;
+			System.out.println();
+			System.out.print(triNum + " ");
+
+			for (int j = 0; j<factors.length; j++)
+			{
+				if (temp > factors[j] && factors[j] < 1000000)
+				{
+				while (temp%factors[j]==0)
+				{
+					temp = temp/factors[j];
+					freq[j]++;
+					//System.out.print(" " + factors[j] + " ");
+					//System.out.print(" " + freq[j] + " ");
+					if (temp == 1 || temp < factors[j])
+					{
+						temp = triNum;
+						break;
+					}
+				}
+				temp = triNum;
+				//System.out.println(temp);
+			}
+				else
+				{
+					break;
+				}
+
+				//System.out.print(freq[j] + " ");
+				
+			}
+			Euler12.DivFunction(freq);
+			System.out.print(Euler12.DivFunction(freq));
+			if (Euler12.DivFunction(freq)>=500)
+			{
+				break;
+			}
+			freq = WipeFreq();
+		}
+
+	}
+
+	public static int[] WipeFreq()
+	{
+		int freq[] = new int[10000];
+		return freq;
+	}
+
+	public static int DivFunction(int x[])
+	{
+		int div = 1;
+		for (int j = 0; j < x.length; j++)
+		{
+			if (x[j] != 0)
+			{
+			//System.out.print("     " + x[0] + "\t");
+			div*=x[j]+1;
+			//System.out.println(div);
+			}
+			if (div >=500)
+			{
+				break;
+			}
+		}
+		//System.out.print(" " + div + " ");
+		return div;
+
+	}
+	
+public static int[] getPrimes()
+	{
+			int factors[] = new int [2000000];
+			int base = 0;
+			int sqrt = 1414;
+			boolean[] Composite = new boolean[2000000+1];
+			for (int m = 2; m <= sqrt; m++)
+			{
+				if (!Composite[m])
+				{
+					factors[base]=m;
+					base++;
+					for (int k = m * m; k <= 2000000; k +=m)
+						Composite[k] = true;
+				}
+				
+			}
+
+			for (int m = sqrt; m <= 2000000; m++)
+				if (!Composite[m])
+				{
+					factors[base]=m;
+					base++;
+				}
+			return factors;
+	}
+}
