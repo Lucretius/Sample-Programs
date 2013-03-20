@@ -34,10 +34,10 @@ public class Euler30 {
 	
 	
 	
-	public static int[] toArray (String x) {				//takes each number starting from 2 and parses it into an array.
-		int num[] = new int [10];							        // for example the number 132 would be turned into an array [1][3][2].
-		String dig;										              	// This makes accessing it's individual elements													                    
-		for (int i = x.length(); i >0; i--) {
+	public static int[] toArray (String x) {		//takes each number starting from 2 and parses it into 
+		int num[] = new int [10];			// an array.  for example the number 132 would be  
+		String dig;					// turned into an array [1][3][2].  													                    
+		for (int i = x.length(); i >0; i--) {		//This makes accessing it's individual elements
 			dig = x.substring(i-1,i);
 			//System.out.println(dig);
 			num[x.length()-i] = Integer.parseInt(dig);
@@ -45,8 +45,8 @@ public class Euler30 {
 		return num;
 	}
 	
-	public static int Power5 (int x[]) {					//takes the num array created and gives the sum of the 5th power of each digit in the number array.
-		
+	public static int Power5 (int x[]) {			//takes the num array created and gives the sum of 
+								//the 5th power of each digit in the number array.
 		int sum = 0;
 		
 		for (int i = 0; i < 6; i++) {
@@ -55,7 +55,7 @@ public class Euler30 {
 		return sum;
 	}
 	
-	public static int[] ArrayTime (int x) {					//takes the sum and turns it into an array as well
+	public static int[] ArrayTime (int x) {			//takes the sum and turns it into an array as well
 		int num[] = new int [10];
 		String dig, sub;
 		
@@ -69,7 +69,7 @@ public class Euler30 {
 		return num;
 	}
 	
-	public static boolean Compare (int x[], int y[]) {		//takes the arrays and compares them to see if equality is met
+	public static boolean Compare (int x[], int y[]) {	//compares the arrays to check for equality
 		
 		boolean test = true;
 		
