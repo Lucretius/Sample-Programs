@@ -1,0 +1,16 @@
+##-----NOTE: Running this code requires the file Temperature.txt-------
+
+
+#import the data file and remove any na values.
+TempData <- read.table("Temperature.txt", header = TRUE)
+TempData1 <- TempData[!is.na(TempData$Temperature),]
+
+#tapply for each required value (provides a 12x16 matrix)
+tapply(TempData1$Temperature, list(TempData1$Month,TempData1$Year), mean)
+tapply(TempData1$Temperature, list(TempData1$Month,TempData1$Year), sd)
+tapply(TempData$Temperature, list(TempData$Month,TempData$Year), length)
+
+#Assignment 2 asks for obs/station, obs/year, and obs/station/year using the table function.  Done easily like so:
+table(TempData$Station)
+table(TempData$Year)
+table(list(TempData$Year,TempData$Station))
