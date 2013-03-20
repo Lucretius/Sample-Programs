@@ -1,0 +1,88 @@
+##-------Some basic function work with datasets in R----------
+##-------NOTE: You need Owls.txt to run this file-------------
+
+
+#Function to calculate missing values per variable
+NAPerVariable <- function(X1) {
+  D1 <- is.na(X1)
+	colSums (D1)
+}
+
+#Function to calculate 0 values per variable
+ZerosPerVariable <- function(X1) {
+	D1 <- (X1 == 0)
+	colSums (D1)
+}
+
+#Combining them into one, and warning if a typo is made:
+VariableInfo <- function(X1, Choice1) {
+	if (Choice1 == "Zeros") {D1 = (X1 == 0) }
+	if (Choice1 == "NAs") {D1 <- is.na(X1) }
+	if (Choice1 != "Zeros" & Choice1 != "NAs") {
+		print("You made a typo")} else {
+	colSums (D1, na.rm = TRUE)}
+}
+
+#using ifelse
+VariableInfo <- function(X1, Choice1) {
+	ifelse (Choice1 == "Zeros", D1 <- (X1 == 0),
+								 D1 <- is.na(X1))
+	if (Choice1 != "Zeros" & Choice1 != "NAs") {
+		print("You made a typo")} else {
+	colSums (D1, na.rm = TRUE)}
+}
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+#--Pseudocode
+# Import Data
+# Make variable names for generic Nest/FoodTreatment Data
+# Make a function with the input of nest and foodtreatment
+#Output data
+Owls <- read.table("Owls.txt", header = TRUE)
+AllNests <- unique(Owls$Nest)
+AllFT <- unique(Owls$FoodTreatement)
+
+NestFood <- function(X1, Choice1, Choice2) {
+	NestName = Choice1
+	FT = Choice2
+	ifelse (Choice1 == NestName & Choice2 == "Satiated", 
+							D1 <- X1[X1$Nest == NestName 														  		& X1$FoodTreatment == "Satiated",],
+							D1 <- X1[X1$Nest == NestName 
+							& X1$FoodTreatment == "Deprived",])
+	if (Choice2 != "Satiated" & Choice2 != "Deprived") {
+		print("You made a typo")} else {
+	  	plot (x = D1$ArrivalTime,
+	  	y = D1$NegPerChick, xlab = "Arrival Time",
+	  	ylab = "Negotation Behavior", main = paste(NestName,FT,sep = " - "))
+	  	print(D1)
+			}
+}
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+Benthic <- read.table("RIKZ.txt", header = TRUE)
+Species <- Benthic[,2:76]
+n <- dim(Species)
+n
+
+#Total abundance per site
+TA <- rowSums(Species, na.rm = TRUE)
+Richness <- rowSums(Species > 0, na.rm = TRUE)
+prop <- Species/TA
+H <- -rowSums(prop*log10(prop), na.rm = TRUE)
+H
+
+Index.function <- function(Spec, Choice1) {
+if (Choice1 == "Richness") {
+	Index <- rowSums(Species > 0, na.rm = TRUE) }
+if (Choice1 == "Total Abundance") {
+	Index <- rowSums(Species, na.rm = TRUE) }
+if (Choice1 == "Shannon") {
+	RS <- rowSums(Species, na.rm = TRUE)
+	prop <- Species/TA
+	Index <- -rowSums(prop*log10(prop), na.rm = TRUE) } else {
+		print("Check your choice")
+		Index <- NA }
+	
+	list(Index = Index, MyChoice = Choice1)
+}
