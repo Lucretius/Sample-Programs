@@ -1,0 +1,23 @@
+import java.util.*;
+
+/* This program finds the number of unique values in a table of a^b where both a and b
+can range in value from 2 to 100.  I utilized a hashset to eliminate duplicates.
+*/
+
+public class Euler29 {
+
+  public static void main(String[] args) {
+
+		List<Double> li = new ArrayList<Double>();
+		
+		for (int i = 2; i < 101; i++) {
+			for (int j = 2; j < 101; j++) {
+					li.add(Math.log10(Math.pow(i, j)));
+			}
+		}
+
+		
+		List<Double> li2 = new ArrayList<Double>(new HashSet(li));
+		System.out.print(li2.size());
+}
+}
