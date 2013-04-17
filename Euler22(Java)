@@ -1,0 +1,60 @@
+import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
+public class Euclid22 {
+  
+/* In this program I was provided a list of names.  My goal was to assign each name
+a numerical value based on the sum of its characters (A=1, B=2, etc.) and its place
+in the line.
+*/
+
+
+//Import file and run program
+
+	public static void main(String[] args) throws FileNotFoundException {
+
+		int total = 0;
+		Scanner s = new Scanner(new File("/Users/robertlippens/Desktop/names.txt")).useDelimiter(",");
+		ArrayList<String> list = new ArrayList<String>();
+		while (s.hasNext()){
+		    list.add(s.next());
+		}
+		s.close();
+		
+		String[] Names = orderNames(list);
+		
+		total = nameValue(Names);
+	}
+
+//order names in file by using Collections.sort method
+
+	public static String[] orderNames (ArrayList<String> list) {
+
+		String[] oNames = new String[list.size()];
+		Collections.sort(list);
+		oNames = list.toArray(oNames);
+		return oNames;
+	}
+	
+//gives the names a numerical value based on pre-specified formula
+
+	public static int nameValue (String[] names) {
+		int total = 0;
+		int eachName = 0;
+		
+		for (int i = 0; i < names.length; i++) {
+			for (char d : names[i].toCharArray()) {
+				eachName+=(d-64);
+			}
+				eachName+=60;
+				eachName*=i+1;
+				total+=eachName;
+				eachName = 0;
+				
+		}
+		System.out.print(total);
+		return total;
+	}
+}
