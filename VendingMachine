@@ -1,0 +1,72 @@
+package org.vm;
+
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
+/*This is a simple vending machine program I developed in Java.
+ * Simply type in what item you want, and input the number of coins/dollars.
+ * If you don't put in enough, you'll have to add more coins!
+*/
+
+public class VendingMachine {
+  
+	static Item i1 = new Item("Coffee",0.75);
+	static Item i2 = new Item("Soda",1.15);
+	static Item i3 = new Item("Beer",1.75);
+	static Item i4 = new Item("Vodka",11.95);
+	static String name;
+	static int n, d, q, dol;
+
+	
+	public static void main(String[] args) {
+		DecimalFormat f = new DecimalFormat("##.00");
+		double total;
+		Item item = null;
+		Scanner s = new Scanner(System.in);
+		System.out.println("Welcome to Robert's Vending Machine!  Please, take a look at my items!");
+		System.out.println(i1.getName() + "  $" + i1.getPrice());
+		System.out.println(i2.getName() + "  $" + i2.getPrice());
+		System.out.println(i3.getName() + "  $" + i3.getPrice());
+		System.out.println(i4.getName() + "  $" + i4.getPrice());
+		
+		System.out.println("Which item would you like?");
+		name = s.nextLine();
+		
+		while (!name.equals(i1.getName()) && !name.equals(i2.getName()) && !name.equals(i3.getName()) && !name.equals(i4.getName())) {
+		System.out.println("I'm sorry, that's not an item on the list.  Please type it exactly as you see it.");
+		name = s.nextLine();
+		}
+		if (name.equals(i1.getName())) {
+			item = i1;
+		} else if (name.equals(i2.getName())) {
+			item = i2;
+		} else if (name.equals(i3.getName())) {
+			item = i3;
+		}
+		else if (name.equals(i4.getName())) {
+			item = i4;
+		}
+		System.out.println("You selected " + name.toLowerCase() + ".  Great!  how would you like to pay for that?  " +
+				"Please enter the number of nickels, dimes, quarters, and dollars you will use.  Just enter the amount of each! (i.e. 1 2 3 4)");
+		System.out.println("N D Q DOL");
+		n = s.nextInt();
+		d = s.nextInt();
+		q = s.nextInt();
+		dol = s.nextInt();
+		
+		total = n*0.05 + d*0.10 + q*0.25 + dol*1.00;
+
+		while (total < item.getPrice()) {
+			System.out.println("You've only added $" + f.format(total) + "!  You need to put in more change!  Please add more coins in the same way as above");
+			System.out.println("N D Q DOL");
+			n += s.nextInt();
+			d += s.nextInt();
+			q += s.nextInt();
+			dol += s.nextInt();
+			total = n*0.05 + d*0.10 + q*0.25 + dol*1.00;
+		} 
+			System.out.println("You paid a total of $" + f.format(total));
+			System.out.println("Your change is $" + f.format(total - item.getPrice()));
+			System.out.println("Enjoy your " + name.toLowerCase() + " and have a good day.");
+	}
+}
