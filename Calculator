@@ -1,0 +1,55 @@
+//A simple calculator built to deal wih user-input errors.
+
+import java.util.Scanner;
+import java.util.regex.Pattern;
+
+
+public class Exercise1 {
+  
+	public static void main(String[] args) {
+
+		String newLine = "";
+		Pattern p = Pattern.compile(".*[A-Za-z].*");
+		
+		while (!newLine.equals("0")) {
+		Scanner s = new Scanner(System.in);
+
+		System.out.println("Input desired calculation:");
+		newLine = s.nextLine();
+		String first = "";
+		String second = "";
+		double ans = 0;
+
+		while (p.matcher(newLine).matches()) {
+			System.out.println("Invalid command!");
+			newLine = s.nextLine();
+		}
+		
+		if (newLine.equals("0")) {
+			break;
+		}
+		
+		if (newLine.contains("*")) {
+			first = newLine.substring(0, newLine.indexOf("*"));
+			second = newLine.substring(newLine.indexOf("*")+1, newLine.length());
+			ans = Double.parseDouble(first) * Double.parseDouble(second);
+		
+		} else if (newLine.contains("+")) {
+			first = newLine.substring(0, newLine.indexOf("+"));
+			second = newLine.substring(newLine.indexOf("+")+1, newLine.length());
+			ans = Double.parseDouble(first) + Double.parseDouble(second);
+			
+		} else if (newLine.contains("-")) {
+			first = newLine.substring(0, newLine.indexOf("-"));
+			second = newLine.substring(newLine.indexOf("-")+1, newLine.length());
+			ans = Double.parseDouble(first) - Double.parseDouble(second);
+			
+		} else if (newLine.contains("/")) {
+			first = newLine.substring(0, newLine.indexOf("/"));
+			second = newLine.substring(newLine.indexOf("/")+1, newLine.length());
+			ans = Double.parseDouble(first) / Double.parseDouble(second);
+		}
+		System.out.println(ans);
+		}
+	}
+}
